@@ -1,84 +1,161 @@
 import type { Product } from "../types";
 
 /**
- * Seed catalog. With no backend yet, this local data source feeds the whole
- * store. The shape matches what a future `/api/products` endpoint would return,
- * so swapping to a real API later is a data-source change, not a rewrite.
+ * National-team kits for the summer of 2026. With no backend yet, this local
+ * data source feeds the whole store; the shape matches a future `/api/products`
+ * response so swapping to an API later is a data-source change, not a rewrite.
  *
- * Images use placeholder color blocks via a data-driven gradient (see
- * ProductCard) so the store runs with zero external assets.
+ * Images are real photography from Unsplash (free license). `image` holds the
+ * base URL; `img()` builds a sized, cropped variant per surface.
  */
 export const products: Product[] = [
   {
-    id: "fc-home-24",
-    name: "Home Kit 24/25",
-    team: "Atlas FC",
-    league: "Football",
+    id: "brazil-2026-home",
+    name: "Brazil 2026 Home",
+    team: "Brazil",
+    region: "South America",
+    kit: "Home",
     price: 89.99,
-    image: "#0b6b3a",
+    compareAt: 109.99,
+    image: "https://images.unsplash.com/photo-1552066379-e7bfd22155c5",
+    rating: 4.9,
+    reviewCount: 512,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    description:
+      "The unmistakable canary yellow with green trim and the crest over the heart. Lightweight, breathable knit built to move — the brightest shirt at any watch party.",
+    badge: "Bestseller",
+  },
+  {
+    id: "brazil-2026-away",
+    name: "Brazil 2026 Away",
+    team: "Brazil",
+    region: "South America",
+    kit: "Away",
+    price: 89.99,
+    image: "https://images.unsplash.com/photo-1780336673669-15be60152796",
+    rating: 4.8,
+    reviewCount: 274,
     sizes: ["S", "M", "L", "XL"],
     description:
-      "The classic home shirt in forest green with the crest stitched over the heart. Breathable match-grade fabric.",
+      "Royal-blue away shirt with tonal detailing and gold accents. A modern cut that wears as well on the street as in the stands.",
+  },
+  {
+    id: "colombia-2026-home",
+    name: "Colombia 2026 Home",
+    team: "Colombia",
+    region: "South America",
+    kit: "Home",
+    price: 84.99,
+    image: "https://images.unsplash.com/photo-1763656813028-3eb492fa7bcf",
+    rating: 4.7,
+    reviewCount: 161,
+    sizes: ["S", "M", "L", "XL"],
+    description:
+      "Sunshine yellow with red-and-blue collar trim. A vivid, summery shirt with a soft-touch finish and a relaxed fan fit.",
     badge: "New",
   },
   {
-    id: "fc-away-24",
-    name: "Away Kit 24/25",
-    team: "Atlas FC",
-    league: "Football",
+    id: "portugal-2026-home",
+    name: "Portugal 2026 Home — #7",
+    team: "Portugal",
+    region: "Europe",
+    kit: "Home",
+    price: 89.99,
+    image: "https://images.unsplash.com/photo-1778454288878-9b3c0c975589",
+    rating: 4.9,
+    reviewCount: 643,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    description:
+      "Deep red home shirt with green detailing and the iconic #7 on the back. Match-weight fabric with a tailored, true-to-size cut.",
+    badge: "Bestseller",
+  },
+  {
+    id: "spain-2026-home",
+    name: "Spain 2026 Home",
+    team: "Spain",
+    region: "Europe",
+    kit: "Home",
     price: 84.99,
-    image: "#1d4ed8",
+    image: "https://images.unsplash.com/photo-1551854321-1432edd90a5c",
+    rating: 4.7,
+    reviewCount: 208,
     sizes: ["S", "M", "L", "XL"],
     description:
-      "Deep royal blue away strip with a tonal jacquard pattern. Lightweight and made for travel days.",
+      "La Roja's bold red home kit with gold trim. Cut for everyday wear as easily as matchday, with a breathable mesh back.",
   },
   {
-    id: "nba-city-edition",
-    name: "City Edition Jersey",
-    team: "Metro Hawks",
-    league: "Basketball",
-    price: 109.99,
-    image: "#7c3aed",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    description:
-      "Limited City Edition swingman jersey with embroidered numbers and a mesh body for the hardwood.",
-    badge: "Limited",
-  },
-  {
-    id: "nba-classic",
-    name: "Classic Edition Jersey",
-    team: "Metro Hawks",
-    league: "Basketball",
-    price: 94.99,
-    image: "#dc2626",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    description:
-      "Retro red throwback honoring the championship era. Soft-hand screen print across the chest.",
-  },
-  {
-    id: "mlb-home-pinstripe",
-    name: "Home Pinstripe Jersey",
-    team: "Harbor Sailors",
-    league: "Baseball",
-    price: 119.99,
-    image: "#0ea5e9",
-    sizes: ["M", "L", "XL", "XXL"],
-    description:
-      "Authentic on-field pinstripe jersey with button-front placket and tackle-twill lettering.",
-  },
-  {
-    id: "nhl-third",
-    name: "Third Jersey",
-    team: "Glacier Wolves",
-    league: "Hockey",
-    price: 134.99,
-    image: "#0f766e",
+    id: "germany-2026-away",
+    name: "Germany 2026 Away",
+    team: "Germany",
+    region: "Europe",
+    kit: "Away",
+    price: 84.99,
+    compareAt: 99.99,
+    image: "https://images.unsplash.com/photo-1551854386-b42759a60dd0",
+    rating: 4.6,
+    reviewCount: 154,
     sizes: ["S", "M", "L", "XL"],
     description:
-      "Alternate teal sweater with a fight-strap and laced collar. Built to take a beating on the ice.",
+      "The striking teal-green away shirt with a tonal pattern. A modern classic that wears like a premium tee.",
+  },
+  {
+    id: "germany-1990-retro",
+    name: "Germany 1990 Retro",
+    team: "Germany",
+    region: "Europe",
+    kit: "Home",
+    price: 79.99,
+    image: "https://images.unsplash.com/photo-1759447946445-397b1c034768",
+    rating: 4.8,
+    reviewCount: 226,
+    sizes: ["S", "M", "L", "XL"],
+    description:
+      "The legendary white shirt with the black-red-gold chevron across the chest. A faithful throwback in a heavier, vintage-feel cotton blend.",
+    badge: "Retro",
+  },
+  {
+    id: "england-2026-home",
+    name: "England 2026 Home",
+    team: "England",
+    region: "Europe",
+    kit: "Home",
+    price: 84.99,
+    image: "https://images.unsplash.com/photo-1780587109939-faae46139552",
+    rating: 4.7,
+    reviewCount: 189,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    description:
+      "Crisp white home shirt with the three-lions crest and a clean red trim. Understated, classic, and built for the long summer ahead.",
+  },
+  {
+    id: "cameroon-2026-home",
+    name: "Cameroon 2026 Home",
+    team: "Cameroon",
+    region: "Africa",
+    kit: "Home",
+    price: 84.99,
+    image: "https://images.unsplash.com/photo-1764104517932-664d963a2af0",
+    rating: 4.6,
+    reviewCount: 97,
+    sizes: ["S", "M", "L", "XL"],
+    description:
+      "The Indomitable Lions' vivid green home shirt with red-and-gold accents. Bold colour, soft hand-feel, and a comfortable fan fit.",
     badge: "New",
   },
 ];
+
+/**
+ * Build a sized, cropped Unsplash URL. Keeps payloads small on cards and crisp
+ * on the product page. Swap the implementation if you move off Unsplash.
+ */
+export function img(
+  base: string,
+  width: number,
+  ratio: "portrait" | "square" = "portrait"
+): string {
+  const height = ratio === "portrait" ? Math.round(width * 1.25) : width;
+  return `${base}?auto=format&fit=crop&w=${width}&h=${height}&q=80`;
+}
 
 export function getProductById(id: string): Product | undefined {
   return products.find((p) => p.id === id);

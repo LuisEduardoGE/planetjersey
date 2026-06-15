@@ -1,6 +1,6 @@
-# Planet Jersey 🌍👕
+# Planet Jersey 🌍⚽
 
-An e-commerce store for authentic sports jerseys and kits — football, basketball, baseball, and hockey, shipped worldwide.
+A football e-commerce store for **national-team kits** — home, away and retro shirts from nations across Europe, South America and Africa, themed for the summer 2026 World Cup and shipped worldwide.
 
 Built as a frontend-first **Vite + React + TypeScript** app. The catalog runs on local seed data today, with the data shape designed to swap to a real API (e.g. FastAPI) without rewriting the UI.
 
@@ -8,11 +8,13 @@ Built as a frontend-first **Vite + React + TypeScript** app. The catalog runs on
 
 ## ✨ Features
 
-- **Catalog** with league filters (Football / Basketball / Baseball / Hockey)
-- **Product detail** pages with size selection
-- **Cart** as a slide-out drawer with quantity controls and live totals
-- **Order summary** with a configurable free-shipping threshold
-- Responsive layout, zero external image assets (color-block kits)
+- **Storefront homepage** — cinematic stadium hero, bestsellers, shop-by-region tiles, editorial band, customer reviews, newsletter
+- **Catalog** with URL-driven region filters (Europe / South America / Africa), search, and sorting (price / rating)
+- **Product detail** — large imagery, star ratings, sale pricing, size selector, expandable details/shipping/returns, "you may also like"
+- **Cart drawer** with quantity controls, live totals, and a free-shipping progress nudge
+- **Trust & conversion layer** — announcement bar, 4-up trust badges (quality / fast shipping / free returns / secure checkout), payment icons, rich footer
+- **Real photography** sourced from Unsplash (free license); product images centralized for easy swap to your own studio shots
+- Fully **responsive** (desktop / tablet / mobile), typographic system with Archivo + Inter
 
 ---
 
@@ -31,13 +33,14 @@ Built as a frontend-first **Vite + React + TypeScript** app. The catalog runs on
 ## 🚀 Getting started
 
 ```bash
-# 1. Install dependencies
+# Option A — one command (installs deps if needed, starts dev server)
+python run.py
+
+# Option B — npm directly
 npm install
+npm run dev          # opens http://localhost:5173
 
-# 2. Start the dev server (opens http://localhost:5173)
-npm run dev
-
-# 3. Production build
+# Production build
 npm run build && npm run preview
 ```
 
@@ -53,10 +56,12 @@ planetjersey/
 │   ├── main.tsx              # App entry — Router + CartProvider
 │   ├── App.tsx              # Shell: navbar, routes, cart drawer, footer
 │   ├── index.css            # All styles
-│   ├── types/               # Product, CartItem, League
-│   ├── data/products.ts     # Seed catalog (swap for an API later)
+│   ├── types/               # Product, CartItem, Region, Kit
+│   ├── data/products.ts     # Seed catalog + img() helper (swap for an API later)
 │   ├── context/CartContext  # Cart state + pricing rules
-│   ├── components/          # Navbar, ProductCard, CartDrawer
+│   ├── components/          # Header, AnnouncementBar, TrustBar, Footer,
+│   │                        # ProductCard, CartDrawer, CategoryTiles,
+│   │                        # Testimonials, Newsletter, Stars
 │   └── pages/               # Home, Catalog, ProductDetail
 ```
 

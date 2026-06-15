@@ -4,7 +4,9 @@ Guidance for AI coding sessions (Claude Code) working in this repo. Keep changes
 
 ## What this project is
 
-**Planet Jersey** is a sports-jersey e-commerce store. Frontend-first **Vite + React + TypeScript**. The catalog is currently local seed data (`src/data/products.ts`); the data shape mirrors a future REST API so the backend can be added without a UI rewrite.
+**Planet Jersey** is a football e-commerce store selling **national-team kits** (home/away/retro), themed for the summer 2026 World Cup. Frontend-first **Vite + React + TypeScript**. The catalog is currently local seed data (`src/data/products.ts`); the data shape mirrors a future REST API so the backend can be added without a UI rewrite.
+
+Products are browsed by **`Region`** (Europe / South America / Africa) and **`Kit`** (Home / Away), not by sport. Keep the product copy neutral — describe colour, design, fabric and fit; do not make authenticity, licensing, or origin claims in product or marketing text.
 
 ## Tech & conventions
 
@@ -23,9 +25,15 @@ Guidance for AI coding sessions (Claude Code) working in this repo. Keep changes
 
 ## When extending the store
 
-- **Add a product:** append to the `products` array in `src/data/products.ts`. `image` is a hex color today (color-block kit); a real URL works too once `ProductCard`/`ProductDetail` render `<img>`.
+- **Add a product:** append to the `products` array in `src/data/products.ts`. Set `team` (the nation), `region`, and `kit`. `image` is the base image URL (Unsplash today); the `img(base, width, ratio)` helper builds sized/cropped variants. Include `rating`, `reviewCount`, `sizes`, and optionally `compareAt` (for sale pricing) and `badge` ("New" | "Retro" | "Bestseller").
+- **Add a region:** extend the `Region` union in `src/types/index.ts`, then add it to `REGIONS` in `Header.tsx` and `Catalog.tsx` (and optionally a tile in `CategoryTiles.tsx`). Only expose a region in filters once it has products, or the filtered view shows empty.
+- **Swap to your own photos:** replace each `image` base URL and, if you leave Unsplash, update `img()` — that's the only place URL params are built.
 - **Add a page:** create it in `src/pages/`, register the `<Route>` in `src/App.tsx`.
 - **Add to cart logic:** extend the reducer in `CartContext.tsx` (add an action), never mutate state in place.
+
+## Image sourcing
+
+Product/lifestyle photos are real Unsplash images (free license) chosen for a trustworthy look. For production, swap in your own licensed product photography. Keep a consistent 4:5 portrait crop for product cards (`img()` defaults to portrait) so the grid stays even.
 
 ## House style (this is a "product studio" pattern)
 

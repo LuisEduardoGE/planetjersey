@@ -1,23 +1,43 @@
 import { Link } from "react-router-dom";
 import type { Product } from "../types";
+import { img } from "../data/products";
+import { Stars } from "./Stars";
 
-/**
- * `product.image` holds a hex color in the seed data, so we render a colored
- * "kit" block instead of loading external images. When a real image URL is
- * supplied later, swap the block for an <img src={product.image} />.
- */
 export function ProductCard({ product }: { product: Product }) {
+  const onSale = product.compareAt && product.compareAt > product.price;
+  const discount = onSale
+    ? Math.round((1 - product.price / product.compareAt!) * 100)
+    : 0;
+
   return (
-    <Link to={`/product/${product.id}`} className="card">
-      <div className="card__image" style={{ background: product.image }}>
-        {product.badge && <span className="card__badge">{product.badge}</span>}
-        <span className="card__number">{product.team.charAt(0)}</span>
+    <Link to={`/product/${product.id}`} className="pcard">
+      <div className="pcard__media">
+        <img
+          className="pcard__img"
+          src={img(product.image, 480)}
+          alt={`${product.name} — ${product.team}`}
+          loading="lazy"
+        />
+        {product.badge && (
+          <span className="pcard__badge">{product.badge}</span>
+        )}
+        {onSale && <span className="pcard__sale">-{discount}%</span>}
+        <span className="pcard__quick">View product</span>
       </div>
-      <div className="card__body">
-        <span className="card__league">{product.league}</span>
-        <h3 className="card__title">{product.name}</h3>
-        <p className="card__team">{product.team}</p>
-        <p className="card__price">${product.price.toFixed(2)}</p>
+
+      <div className="pcard__body">
+        <span className="pcard__league">{product.kit} · {product.region}</span>
+        <h3 className="pcard__title">{product.name}</h3>
+        <p className="pcard__team">{product.team}</p>
+        <Stars rating={product.rating} count={product.reviewCount} size={14} />
+        <div className="pcard__pricerow">
+          <span className="pcard__price">${product.price.toFixed(2)}</span>
+          {onSale && (
+            <span className="pcard__compare">
+              ${product.compareAt!.toFixed(2)}
+            </span>
+          )}
+        </div>
       </div>
     </Link>
   );

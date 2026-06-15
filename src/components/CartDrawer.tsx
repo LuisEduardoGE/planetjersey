@@ -1,12 +1,18 @@
 import { useCart } from "../context/CartContext";
+import { img } from "../data/products";
 
 interface CartDrawerProps {
   open: boolean;
   onClose: () => void;
 }
 
+const FREE_SHIPPING_AT = 150;
+
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
   const { items, summary, setQuantity, removeItem, clear } = useCart();
+
+  const remaining = Math.max(0, FREE_SHIPPING_AT - summary.subtotal);
+  const progress = Math.min(100, (summary.subtotal / FREE_SHIPPING_AT) * 100);
 
   return (
     <>
@@ -14,50 +20,72 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         className={`drawer__backdrop ${open ? "is-open" : ""}`}
         onClick={onClose}
       />
-      <aside className={`drawer ${open ? "is-open" : ""}`}>
+      <aside
+        className={`drawer ${open ? "is-open" : ""}`}
+        aria-hidden={!open}
+        aria-label="Shopping cart"
+      >
         <div className="drawer__head">
-          <h2>Your Cart</h2>
-          <button className="drawer__close" onClick={onClose}>
+          <h2>
+            Your Cart{" "}
+            {summary.itemCount > 0 && (
+              <span className="drawer__count">{summary.itemCount}</span>
+            )}
+          </h2>
+          <button className="drawer__close" onClick={onClose} aria-label="Close cart">
             ×
           </button>
         </div>
 
+        {items.length > 0 && (
+          <div className="ship-nudge">
+            {remaining > 0 ? (
+              <p>
+                You're <strong>${remaining.toFixed(2)}</strong> away from{" "}
+                <strong>free shipping</strong>
+              </p>
+            ) : (
+              <p className="ship-nudge--win">🎉 You've unlocked free shipping!</p>
+            )}
+            <div className="ship-nudge__bar">
+              <span style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+        )}
+
         {items.length === 0 ? (
-          <p className="drawer__empty">Your cart is empty. Go grab a kit!</p>
+          <div className="drawer__empty">
+            <p className="drawer__empty-icon">🛒</p>
+            <p>Your cart is empty.</p>
+            <p className="drawer__empty-sub">Find your colours in the shop.</p>
+          </div>
         ) : (
           <ul className="drawer__items">
             {items.map((item) => (
               <li key={`${item.product.id}-${item.size}`} className="line">
-                <div
+                <img
                   className="line__thumb"
-                  style={{ background: item.product.image }}
+                  src={img(item.product.image, 120)}
+                  alt={item.product.name}
                 />
                 <div className="line__info">
                   <p className="line__name">{item.product.name}</p>
-                  <p className="line__meta">
-                    {item.product.team} · Size {item.size}
-                  </p>
+                  <p className="line__meta">Size {item.size}</p>
                   <div className="line__qty">
                     <button
                       onClick={() =>
-                        setQuantity(
-                          item.product.id,
-                          item.size,
-                          item.quantity - 1
-                        )
+                        setQuantity(item.product.id, item.size, item.quantity - 1)
                       }
+                      aria-label="Decrease quantity"
                     >
                       −
                     </button>
                     <span>{item.quantity}</span>
                     <button
                       onClick={() =>
-                        setQuantity(
-                          item.product.id,
-                          item.size,
-                          item.quantity + 1
-                        )
+                        setQuantity(item.product.id, item.size, item.quantity + 1)
                       }
+                      aria-label="Increase quantity"
                     >
                       +
                     </button>
@@ -88,9 +116,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             <div className="summary">
               <span>Shipping</span>
               <span>
-                {summary.shipping === 0
-                  ? "Free"
-                  : `$${summary.shipping.toFixed(2)}`}
+                {summary.shipping === 0 ? "Free" : `$${summary.shipping.toFixed(2)}`}
               </span>
             </div>
             <div className="summary summary--total">
@@ -98,11 +124,14 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
               <span>${summary.total.toFixed(2)}</span>
             </div>
             <button
-              className="btn btn--primary btn--block"
+              className="btn btn--primary btn--block btn--lg"
               onClick={() => alert("Checkout is a stub — wire up payments next!")}
             >
-              Checkout
+              Secure Checkout →
             </button>
+            <p className="drawer__assure">
+              🔒 Encrypted checkout · 30-day returns
+            </p>
             <button className="drawer__clear" onClick={clear}>
               Clear cart
             </button>
