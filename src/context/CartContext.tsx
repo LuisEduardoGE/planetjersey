@@ -36,7 +36,7 @@ type CartAction =
 const sameLine = (item: CartItem, productId: string, size: string) =>
   item.product.id === productId && item.size === size;
 
-function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
+export function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
   switch (action.type) {
     case "ADD": {
       const existing = state.find((i) =>
@@ -83,7 +83,7 @@ function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
 const FREE_SHIPPING_THRESHOLD = 150;
 const FLAT_SHIPPING = 9.99;
 
-function computeOrderSummary(items: CartItem[]): OrderSummary {
+export function computeOrderSummary(items: CartItem[]): OrderSummary {
   const subtotal = items.reduce(
     (sum, i) => sum + i.product.price * i.quantity,
     0
